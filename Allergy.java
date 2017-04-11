@@ -11,5 +11,6 @@ public class Allergy {
 		
 		this.allergy = allergy;
 		this.causedByDrugs = causedBy;
+		System.out.println(allergy);
 	}
 }
