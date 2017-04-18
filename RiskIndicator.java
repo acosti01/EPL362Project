@@ -1,5 +1,5 @@
 package objects;
 
-enum RiskIndicator {
+public enum RiskIndicator {
 	VeryLow, Low, High, VeryHigh
 };

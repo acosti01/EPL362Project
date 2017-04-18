@@ -9,9 +9,9 @@ public class Nurse extends Staff {
 
 	public Nurse(String name, String surname, int ID, boolean canEdit,
 			boolean canAccess, boolean isAtWork, ArrayList<Patient> patients,
-			boolean isAtHome) {
+			boolean isAtHome, Clinic clinic, AccountType type) {
 
-		super(name, surname, ID, canEdit, canAccess, isAtWork);
+		super(name, surname, ID, canEdit, canAccess, isAtWork, clinic, type);
 		this.listOfPatients = patients;
 		this.isAtHomeVisit = isAtHome;
 	}

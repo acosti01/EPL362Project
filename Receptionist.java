@@ -10,9 +10,9 @@ public class Receptionist extends Staff {
 	public Receptionist(String name, String surname, int ID, boolean canEdit,
 			boolean canAccess, boolean isAtWork,
 			ArrayList<Appointment> appointments,
-			ArrayList<Prescription> prescriptions) {
+			ArrayList<Prescription> prescriptions, Clinic clinic, AccountType type) {
 
-		super(name, surname, ID, canEdit, canAccess, isAtWork);
+		super(name, surname, ID, canEdit, canAccess, isAtWork, clinic, type);
 
 		this.appointments = appointments;
 		this.prescriptions = prescriptions;
