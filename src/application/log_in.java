@@ -9,7 +9,7 @@ public class log_in {
 		username = null;
 		password = null;
 	}
-
+aaaaaaaaaaaaaaaaaaaaaa
 	public String getUsername() {
 		return username;
 	}
