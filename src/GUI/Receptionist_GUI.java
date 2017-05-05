@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Receptionist_GUI extends JFrame {
 
@@ -102,6 +104,7 @@ public class Receptionist_GUI extends JFrame {
 		tab1.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("");
+		
 		btnNewButton_1.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/pencil.png")));
 		btnNewButton_1.setBounds(889, 375, 58, 51);
 		tab1.add(btnNewButton_1);
@@ -151,9 +154,16 @@ public class Receptionist_GUI extends JFrame {
 		patientsscrollpane.setBounds(64, 325, 1204, 325);
 		tab2.add(patientsscrollpane);		
 		patientsTable.setEnabled(false);
+		
+		
 //		*********************FILL_DIARY*********************************
 		
 		JButton button_1 = new JButton("");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		
+			}
+		});
 		button_1.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/add.png")));
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 25));
 		button_1.setBounds(1278, 325, 58, 54);

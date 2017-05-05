@@ -110,12 +110,11 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 	}
 	
 	@Override
-	public Object[][] fillPatients() throws RemoteException, SQLException {
-		Object[][] patientsEntry = null;
+	public Object[][] fillPatients() throws RemoteException, SQLException {		
 		String query = "select * from patient order by patient.lastname";				
-
+		Object[][] patientsEntry;
 		Statement stat = conn.createStatement();
-		ResultSet rs = stat.executeQuery(query);
+		ResultSet rs = stat.executeQuery(query);		
 		int c = 0;
 		int size = 0;
 		rs.last();
