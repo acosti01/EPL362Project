@@ -33,7 +33,6 @@ public class mainApplication {
 			else
 				home.alertForWrongLogin();
 		}
-		int a = 1;
 		home.setVisible(false);
 		User currentUser = new User(s);
 		switch (currentUser.getType()) {
