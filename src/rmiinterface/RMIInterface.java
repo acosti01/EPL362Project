@@ -15,6 +15,10 @@ public interface RMIInterface extends Remote {
 	public Object[][] fillDiary() throws RemoteException,SQLException;
 
 	Object[][] fillPatients() throws RemoteException, SQLException;
+
+	void addPatient(int id, String name, String surname, String email,
+			String address, String bday, String tel, String gender)
+			throws RemoteException, SQLException;
 	
 		
 }
