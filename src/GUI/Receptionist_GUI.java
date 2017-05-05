@@ -235,7 +235,6 @@ public class Receptionist_GUI extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
 					patientsEntry = null;
 					try {
 						patientsEntry = look_up.fillPatients();

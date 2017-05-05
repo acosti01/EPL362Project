@@ -2,11 +2,8 @@ package rmiinterface;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import javax.swing.DefaultListModel;
 
 public interface RMIInterface extends Remote {
 	

@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
-
 import rmiinterface.RMIInterface;
 
 public class ServerOperation extends UnicastRemoteObject
