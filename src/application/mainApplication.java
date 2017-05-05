@@ -36,7 +36,6 @@ public class mainApplication {
 		int a = 1;
 		home.setVisible(false);
 		User currentUser = new User(s);
-		System.out.println("");
 		switch (currentUser.getType()) {
 		case "CLINICAL_STAFF":
 			new  Receptionist_GUI(currentUser);
