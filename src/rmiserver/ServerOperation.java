@@ -85,25 +85,49 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 
 	@Override
 	public Object[][] fillDiary() throws RemoteException, SQLException {
-		Object [][] diaryEntry = null;
+		Object[][] diaryEntry = null;
 		String query = "select patient.id,patient.firstname,patient."
 				+ "lastname,patient.phonenumber, appointment.date,user.firstname,"
 				+ "user.lastname,appointment.clinic,appointment.time, appointment.type "
 				+ "from user,patient,appointment "
-				+ "where patient.id=appointment.patient and user.id=appointment.clinician";
+				+ "where patient.id=appointment.patient and user.id=appointment.clinician ORDER BY appointment.date";
+				
 
 		Statement stat = conn.createStatement();
 		ResultSet rs = stat.executeQuery(query);
 		int c = 0;
-		java.sql.ResultSetMetaData rsmd = rs.getMetaData();		
-		while (rs.next()) {
-			int numOfCols = rsmd.getColumnCount();
-			diaryEntry = new Object[numOfCols][10];			
-			for (int i=0;i<10;i++)
-				diaryEntry[c][i]=rs.getString(i+1);					
-			c++;		
+		int size = 0;
+		rs.last();
+		size = rs.getRow();
+		rs.beforeFirst();
+		diaryEntry = new Object[size][10];
+		while (rs.next()) {			
+			for (int i = 0; i < 10; i++)
+				diaryEntry[c][i] = rs.getString(i + 1);
+			c++;
 		}
 		return diaryEntry;
+	}
+	
+	@Override
+	public Object[][] fillPatients() throws RemoteException, SQLException {
+		Object[][] patientsEntry = null;
+		String query = "select * from patient order by patient.lastname";				
+
+		Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(query);
+		int c = 0;
+		int size = 0;
+		rs.last();
+		size = rs.getRow();
+		rs.beforeFirst();
+		patientsEntry = new Object[size][8];
+		while (rs.next()) {			
+			for (int i = 0; i < 8; i++)
+				patientsEntry[c][i] = rs.getString(i + 1);
+			c++;
+		}
+		return patientsEntry;
 	}
 
 }

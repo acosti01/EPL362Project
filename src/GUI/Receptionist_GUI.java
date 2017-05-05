@@ -76,11 +76,12 @@ public class Receptionist_GUI extends JFrame {
 		lblNewLabel_3.setBounds(391, 227, 376, 46);
 		tab1.add(lblNewLabel_3);
 		
+//		*********************FILL_DIARY*********************************
 		Object [][] diaryEntry ;
 		diaryEntry=look_up.fillDiary();
 		String [] diaryColumns={"ID","Name","Surname","Phone Number","Date","Clinicians First Name","Clinicians Last Name","Clinic","Time","Type"};
-		DefaultTableModel tableModel = new DefaultTableModel(diaryEntry,diaryColumns);
-		JTable diaryTable = new JTable(tableModel); 
+		DefaultTableModel diarytableModel = new DefaultTableModel(diaryEntry,diaryColumns);
+		JTable diaryTable = new JTable(diarytableModel); 
 		diaryTable.setBounds(57, 310, 812, 325);
 		diaryTable.getTableHeader().setBackground(Color.pink);
 		diaryTable.getTableHeader().setForeground(Color.blue);;
@@ -88,9 +89,12 @@ public class Receptionist_GUI extends JFrame {
 		diaryTable.getTableHeader().setFont(tf);
 		JScrollPane scrollpane = new JScrollPane(diaryTable);
 		scrollpane.setBounds(57,310,812,325);
-		tab1.add(scrollpane);
+		tab1.add(scrollpane);		
+		diaryTable.setEnabled(false);
+
+//		*********************FILL_DIARY*********************************
 		
-		
+
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/add.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -133,10 +137,21 @@ public class Receptionist_GUI extends JFrame {
 		lblPatientRecords.setFont(new Font("Tahoma", Font.BOLD, 26));
 		lblPatientRecords.setBounds(569, 11, 237, 46);
 		tab2.add(lblPatientRecords);
-		
-		JList list_1 = new JList();
-		list_1.setBounds(64, 325, 1204, 325);
-		tab2.add(list_1);
+//		*********************FILL_PATIENTS*********************************
+		Object [][] patientsEntry ;
+		patientsEntry=look_up.fillPatients();
+		String [] patientsColumns={"ID","Name","Surname","Email","Address","Phone Number","Birthday","Gender"};
+		DefaultTableModel patientstableModel = new DefaultTableModel(patientsEntry,patientsColumns);
+		JTable patientsTable = new JTable(patientstableModel); 
+		patientsTable.setBounds(64, 325, 1204, 325);
+		patientsTable.getTableHeader().setBackground(Color.pink);
+		patientsTable.getTableHeader().setForeground(Color.blue);
+		patientsTable.getTableHeader().setFont(tf);
+		JScrollPane patientsscrollpane = new JScrollPane(patientsTable);
+		patientsscrollpane.setBounds(64, 325, 1204, 325);
+		tab2.add(patientsscrollpane);		
+		patientsTable.setEnabled(false);
+//		*********************FILL_DIARY*********************************
 		
 		JButton button_1 = new JButton("");
 		button_1.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/add.png")));
