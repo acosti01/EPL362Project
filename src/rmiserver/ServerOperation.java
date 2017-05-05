@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+
 import rmiinterface.RMIInterface;
 
 public class ServerOperation extends UnicastRemoteObject implements RMIInterface {
@@ -79,6 +81,29 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 			}
 		}
 		return a;
+	}
+
+	@Override
+	public Object[][] fillDiary() throws RemoteException, SQLException {
+		Object [][] diaryEntry = null;
+		String query = "select patient.id,patient.firstname,patient."
+				+ "lastname,patient.phonenumber, appointment.date,user.firstname,"
+				+ "user.lastname,appointment.clinic,appointment.time, appointment.type "
+				+ "from user,patient,appointment "
+				+ "where patient.id=appointment.patient and user.id=appointment.clinician";
+
+		Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(query);
+		int c = 0;
+		java.sql.ResultSetMetaData rsmd = rs.getMetaData();		
+		while (rs.next()) {
+			int numOfCols = rsmd.getColumnCount();
+			diaryEntry = new Object[numOfCols][10];			
+			for (int i=0;i<10;i++)
+				diaryEntry[c][i]=rs.getString(i+1);					
+			c++;		
+		}
+		return diaryEntry;
 	}
 
 }

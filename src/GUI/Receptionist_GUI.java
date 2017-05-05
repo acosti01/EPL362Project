@@ -2,17 +2,24 @@ package GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Entities.User;
+import rmiinterface.RMIInterface;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JButton;
@@ -31,9 +38,10 @@ public class Receptionist_GUI extends JFrame {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 * @throws ClassNotFoundException 
+	 * @throws SQLException 
+	 * @throws RemoteException 
 	 */
-	public Receptionist_GUI(User user) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
-		JTable table;
+	public Receptionist_GUI(User user, RMIInterface look_up) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, SQLException, RemoteException {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -68,9 +76,20 @@ public class Receptionist_GUI extends JFrame {
 		lblNewLabel_3.setBounds(391, 227, 376, 46);
 		tab1.add(lblNewLabel_3);
 		
-		JList list = new JList();
-		list.setBounds(57, 310, 812, 325);
-		tab1.add(list);
+		Object [][] diaryEntry ;
+		diaryEntry=look_up.fillDiary();
+		String [] diaryColumns={"ID","Name","Surname","Phone Number","Date","Clinicians First Name","Clinicians Last Name","Clinic","Time","Type"};
+		DefaultTableModel tableModel = new DefaultTableModel(diaryEntry,diaryColumns);
+		JTable diaryTable = new JTable(tableModel); 
+		diaryTable.setBounds(57, 310, 812, 325);
+		diaryTable.getTableHeader().setBackground(Color.pink);
+		diaryTable.getTableHeader().setForeground(Color.blue);;
+		Font tf=new Font("Appointments",Font.BOLD,12);
+		diaryTable.getTableHeader().setFont(tf);
+		JScrollPane scrollpane = new JScrollPane(diaryTable);
+		scrollpane.setBounds(57,310,812,325);
+		tab1.add(scrollpane);
+		
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/add.png")));

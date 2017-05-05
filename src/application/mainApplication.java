@@ -37,10 +37,10 @@ public class mainApplication {
 		User currentUser = new User(s);
 		switch (currentUser.getType()) {
 		case "CLINICAL_STAFF":
-			new  Receptionist_GUI(currentUser);
+			new  Receptionist_GUI(currentUser, look_up);
 			break;
 		case "RECEPTIONIST":
-			new Receptionist_GUI(currentUser);
+			new Receptionist_GUI(currentUser,look_up);
 			break;
 		case "MEDICAL_RECORD_STAFF":
 			//new MedicalRecord_GUI(currentUser);
