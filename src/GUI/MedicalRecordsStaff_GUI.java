@@ -34,7 +34,7 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 		tab1.setBorder(new EmptyBorder(5,5,5,5));
 		tab1.setLayout(null);
 		tabbedPane.addTab("Manage Personel", tab1);
-		tab1.setBackground(SystemColor.activeCaption);
+		tab1.setBackground(new Color(100, 149, 237));
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(MedicalRecordsStaff_GUI.class.getResource("/img/medical_record_staff.png")));
@@ -78,12 +78,10 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 		tab1.add(btnNewButton_5);
 		
 		JPanel tab2 = new JPanel();
-		tab2.setBackground(SystemColor.activeCaption);
+		tab2.setBackground(new Color(100, 149, 237));
 		tab2.setBorder(new EmptyBorder(5,5,5,5));
 		tab2.setLayout(null);
 		tabbedPane.addTab("Handle change request", tab2);
-		
-	
 		
 		JLabel lblPatientRecords = new JLabel("Request for changes ");
 		lblPatientRecords.setForeground(new Color(0, 0, 51));
@@ -120,7 +118,7 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 		
 		
 		JPanel tab3 = new JPanel();
-		tab3.setBackground(SystemColor.activeCaption);
+		tab3.setBackground(new Color(100, 149, 237));
 		tab3.setBorder(new EmptyBorder(5,5,5,5));
 		tab3.setLayout(null);
 		tabbedPane.addTab("Report a deceased patient ", tab3);
