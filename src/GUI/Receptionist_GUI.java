@@ -235,25 +235,6 @@ public class Receptionist_GUI extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					patientsEntry = null;
-					try {
-						patientsEntry = look_up.fillPatients();
-					} catch (RemoteException | SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
-					patientstableModel = new DefaultTableModel(
-							patientsEntry, patientsColumns);
-					patientsTable = new JTable(patientstableModel);
-					patientsTable.setBounds(64, 325, 1204, 325);
-					patientsTable.getTableHeader().setBackground(Color.pink);
-					patientsTable.getTableHeader().setForeground(Color.blue);
-					patientsTable.getTableHeader().setFont(tf);
-					patientsscrollpane = new JScrollPane(patientsTable);
-					patientsscrollpane.setBounds(64, 325, 1204, 325);
-					tab2.add(patientsscrollpane);
-					patientsTable.setEnabled(false);
 				}
 			}
 		});
@@ -263,12 +244,42 @@ public class Receptionist_GUI extends JFrame {
 		button_1.setBounds(1278, 325, 58, 54);
 		tab2.add(button_1);
 
+		JButton btnNewButton_4 = new JButton("");
+		btnNewButton_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				patientsEntry = null;
+				try {
+					patientsEntry = look_up.fillPatients();
+				} catch (RemoteException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+				patientstableModel = new DefaultTableModel(
+						patientsEntry, patientsColumns);
+				patientsTable = new JTable(patientstableModel);
+				patientsTable.setBounds(64, 325, 1204, 325);
+				patientsTable.getTableHeader().setBackground(Color.pink);
+				patientsTable.getTableHeader().setForeground(Color.blue);
+				patientsTable.getTableHeader().setFont(tf);
+				patientsscrollpane = new JScrollPane(patientsTable);
+				patientsscrollpane.setBounds(64, 325, 1204, 325);
+				tab2.add(patientsscrollpane);
+				patientsTable.setEnabled(false);
+			}
+		});
+		btnNewButton_4.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/refresh.png")));
+		btnNewButton_4.setBounds(1280, 415, 58, 54);
+		tab2.add(btnNewButton_4);
+		
 		JButton button_2 = new JButton("");
 		
 		button_2.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/pencil.png")));
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 25));
-		button_2.setBounds(1278, 463, 58, 54);
+		button_2.setBounds(1278, 503, 58, 54);
 		tab2.add(button_2);
 
 		JButton button_3 = new JButton("");
