@@ -1,9 +1,6 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -19,7 +15,7 @@ import java.awt.SystemColor;
 
 public class MedicalRecordsStaff_GUI extends JFrame {
 
-	private JPanel contentPane;
+	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 
 	/**
@@ -28,10 +24,8 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 	public MedicalRecordsStaff_GUI() {
 		//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1047, 799);
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		
-
 		JTabbedPane tabbedPane = new JTabbedPane();
 		setLocationRelativeTo(null);
 		setContentPane(tabbedPane);

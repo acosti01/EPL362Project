@@ -13,6 +13,7 @@ import Entities.User;
 import rmiinterface.RMIInterface;
 import GUI.ClinicalStaff_GUI;
 import GUI.HomePage_GUI;
+import GUI.MedicalRecordsStaff_GUI;
 import GUI.Receptionist_GUI;
 
 public class mainApplication {
@@ -43,7 +44,7 @@ public class mainApplication {
 			new Receptionist_GUI(currentUser,look_up);
 			break;
 		case "MEDICAL_RECORD_STAFF":
-			//new MedicalRecord_GUI(currentUser);
+			new MedicalRecordsStaff_GUI();
 			break;
 		case "HEALTH_SERVICE_MANAGEMENT":
 			//new Management_GUI(currentUser);
