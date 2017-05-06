@@ -12,8 +12,7 @@ import java.util.ArrayList;
 
 import rmiinterface.RMIInterface;
 
-public class ServerOperation extends UnicastRemoteObject
-		implements RMIInterface {
+public class ServerOperation extends UnicastRemoteObject implements RMIInterface {
 
 	private static final long serialVersionUID = 1L;
 	private static Connection conn;
@@ -48,8 +47,7 @@ public class ServerOperation extends UnicastRemoteObject
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(
-					"jdbc:mysql://" + HOST + "/" + DATABASE, USER, PASSWORD);
+			conn = DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + DATABASE, USER, PASSWORD);
 			statement = conn.createStatement();
 			if (conn == null) {
 				System.out.println("Problem with connection");
@@ -60,12 +58,10 @@ public class ServerOperation extends UnicastRemoteObject
 	}
 
 	@Override
-	public ArrayList<String> validate(String username, String password)
-			throws RemoteException, SQLException {
+	public ArrayList<String> validate(String username, String password) throws RemoteException, SQLException {
 		ArrayList<String> a = new ArrayList<String>();
 		System.out.println("Trying to login with username = " + username);
-		String query = "SELECT * FROM user WHERE " + "username='" + username
-				+ "' " + "AND password='" + password + "'";
+		String query = "SELECT * FROM user WHERE " + "username='" + username + "' " + "AND password='" + password + "'";
 		Statement stat = conn.createStatement();
 
 		ResultSet rs = stat.executeQuery(query);
@@ -131,13 +127,11 @@ public class ServerOperation extends UnicastRemoteObject
 	}
 
 	@Override
-	public void addPatient(int id, String name, String surname, String email,
-			String address, String bday, String tel, String gender)
-			throws RemoteException, SQLException {
+	public void addPatient(int id, String name, String surname, String email, String address, String bday, String tel,
+			String gender) throws RemoteException, SQLException {
 
-		String query = "INSERT INTO PATIENT values ( " + "'" + id + "','" + name
-				+ "','" + surname + "','" + email + "','" + address + "','"
-				+ tel + "','" + bday + "','" + gender + "')";
+		String query = "INSERT INTO PATIENT values ( " + "'" + id + "','" + name + "','" + surname + "','" + email
+				+ "','" + address + "','" + tel + "','" + bday + "','" + gender + "')";
 
 		Statement stat = conn.createStatement();
 		stat.executeUpdate(query);
@@ -145,15 +139,12 @@ public class ServerOperation extends UnicastRemoteObject
 	}
 
 	@Override
-	public void editPatient(int id, String name, String surname, String email,
-			String address, String bday, String tel, String gender)
-			throws RemoteException, SQLException {
+	public void editPatient(int id, String name, String surname, String email, String address, String bday, String tel,
+			String gender) throws RemoteException, SQLException {
 
-		String query = "UPDATE PATIENT SET firstname = " + "'" + name
-				+ "', lastname = '" + surname + "', relative_email = '" + email
-				+ "', address = '" + address + "', phonenumber = '" + tel
-				+ "', birthday = '" + bday + "', gender = '" + gender
-				+ "'where id = '" + id + "'";
+		String query = "UPDATE PATIENT SET firstname = " + "'" + name + "', lastname = '" + surname
+				+ "', relative_email = '" + email + "', address = '" + address + "', phonenumber = '" + tel
+				+ "', birthday = '" + bday + "', gender = '" + gender + "'where id = '" + id + "'";
 
 		Statement stat = conn.createStatement();
 		stat.executeUpdate(query);
@@ -168,4 +159,81 @@ public class ServerOperation extends UnicastRemoteObject
 		stat.executeUpdate(query);
 		System.out.println("Deleted patient with ID = " + id);
 	}
+
+	@Override
+	public Object[] getClinics() throws SQLException,RemoteException {
+		Object[] result = null;
+		String query = "SELECT name  FROM clinic ";		
+		Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(query);
+		int i=0;
+		int size = 0;
+		rs.last();
+		size = rs.getRow();
+		rs.beforeFirst();
+		result = new Object[size];
+		while (rs.next()) {			
+				result[i++] = rs.getString(1);			
+		}
+		return result;
+
+	}
+	
+	@Override
+	public Object[] getClinicians() throws SQLException,RemoteException {
+		Object[] result = null;
+		String query = "SELECT firstname,lastname  FROM user where type='CLINICAL_STAFF'";		
+		Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(query);
+		int i=0;
+		int size = 0;
+		rs.last();
+		size = rs.getRow();
+		rs.beforeFirst();
+		result = new Object[size];
+		while (rs.next()) {			
+				result[i++] = rs.getString(1)+" "+rs.getString(2);			
+		}
+		return result;
+
+	}
+
+	@Override
+	public void addAppointment(int iD, int patientsID, String date, String time, String clinic, String clinician,
+			String type, String status) throws SQLException,RemoteException {
+		String fullname= clinician;
+		String[] splited = fullname.split("\\s+");
+		String name= splited[0];
+		String surname = splited[1];
+		String prequery = "select id from user where firstname='"+name+"' and lastname='"+surname+"'";
+		Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(prequery);
+		rs.next();
+		String cliniciansID=rs.getString(1);		
+		
+		String query = "INSERT INTO appointment values ( " + "'" + iD + "','" + date + "','" + patientsID+ "','" + cliniciansID
+				+ "','" + clinic + "','" + time + "','" + type + "','" + status + "')";
+		stat.executeUpdate(query);
+		System.out.println("Added new appointment with ID = " + iD);
+		
+		
+	}
+
+//	@Override
+//	public String[] getClinicians() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public String[] getAppointmentType() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public String[] getStatus() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
