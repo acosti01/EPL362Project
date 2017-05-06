@@ -2,7 +2,6 @@ package GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
@@ -10,19 +9,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import Entities.User;
-import javafx.scene.control.ComboBox;
 import rmiinterface.RMIInterface;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
@@ -41,6 +35,7 @@ public class Receptionist_GUI extends JFrame {
 	JPanel myPanel1 = new JPanel();
 	JPanel myPanel2 = new JPanel();
 	JPanel myPanel3 = new JPanel();
+	JPanel myPanel4 = new JPanel();
 	JTextField patientsid = new JTextField(20);
 	JTextField patientsname = new JTextField(20);
 	JTextField patientssurname = new JTextField(20);
@@ -66,11 +61,33 @@ public class Receptionist_GUI extends JFrame {
 	JTextField appointmenttime = new JTextField(20);
 	JComboBox<String> typeComboBox = new JComboBox<String>();
 	JComboBox<String> statusComboBox = new JComboBox<String>();
-
+	JTextField patientsname2 = new JTextField(20);
+	JTextField patientssurname2 = new JTextField(20);
+	JTextField patientstelephone2 = new JTextField(20);
+	JTextField patientsid3 = new JTextField(8);
+	JTextField cliniciansname2 = new JTextField(20);
+	JTextField clinicianssurname2 = new JTextField(20);
+	JTextField clinicname = new JTextField(20);
+	JTextField appointmenttime2 = new JTextField(20);
+	JTextField appointmenttype = new JTextField(20);
+	JTextField appointmenttype1 = new JTextField(20);
+	JTextField appointmentid1 = new JTextField(8);
+	JTextField appointmentdate1 = new JTextField(20);
+	JTextField appointmenttime1 = new JTextField(20);
+	JComboBox<String> typeComboBox1 = new JComboBox<String>();
+	JComboBox<String> statusComboBox1 = new JComboBox<String>();
+	JTextField cliniciansname1 = new JTextField(20);
+	JComboBox<String> cliniciansComboBox1 = new JComboBox<String>();
+	JComboBox<String> clinicsComboBox1 = new JComboBox<String>();
 	Object[][] patientsEntry;
 	String[] patientsColumns = { "ID", "Name", "Surname", "Email", "Address", "Phone Number", "Birthday", "Gender" };
+
 	DefaultTableModel patientstableModel;
+	DefaultTableModel diarytableModel;
+
+	JTable diaryTable;
 	JTable patientsTable;
+	JScrollPane diaryscrollpane;
 	JScrollPane patientsscrollpane;
 
 	/**
@@ -86,10 +103,9 @@ public class Receptionist_GUI extends JFrame {
 	public Receptionist_GUI(User user, RMIInterface look_up) throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, UnsupportedLookAndFeelException, SQLException, RemoteException {
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-
 		JTabbedPane tabbedPane = new JTabbedPane();
 		setLocationRelativeTo(null);
 		setContentPane(tabbedPane);
@@ -119,11 +135,11 @@ public class Receptionist_GUI extends JFrame {
 		// *********************FILL_DIARY*********************************
 		Object[][] diaryEntry;
 		diaryEntry = look_up.fillDiary();
-		String[] diaryColumns = { "ID", "Name", "Surname", "Phone Number", "Date", "Clinicians First Name",
-				"Clinicians Last Name", "Clinic", "Time", "Type" };
+		String[] diaryColumns = { "Appointment ID", "Patients ID", "Name", "Surname", "Phone Number", "Date",
+				"Clinicians First Name", "Clinicians Last Name", "Clinic", "Time", "Type" };
 		DefaultTableModel diarytableModel = new DefaultTableModel(diaryEntry, diaryColumns);
-		JTable diaryTable = new JTable(diarytableModel);
-		diaryTable.setBounds(57, 310, 812, 325);
+		diaryTable = new JTable(diarytableModel);
+		diaryTable.setBounds(57, 310, 1204, 325);
 		diaryTable.getTableHeader().setBackground(Color.pink);
 		diaryTable.getTableHeader().setForeground(Color.blue);
 		Font tf = new Font("Appointments", Font.BOLD, 12);
@@ -152,13 +168,29 @@ public class Receptionist_GUI extends JFrame {
 					String clinician = cliniciansComboBox.getSelectedItem().toString();
 					String type = typeComboBox.getSelectedItem().toString();
 					String status = statusComboBox.getSelectedItem().toString();
-
+					String fullname = null;
+					try {
+						fullname = look_up.getPatientsFullName(patientsID);
+					} catch (RemoteException | SQLException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					String[] splited = fullname.split("\\s+");
+					String name = splited[0];
+					String surname = splited[1];
+					String phone = splited[2];
+					String[] splited1 = clinician.split("\\s+");
+					String clinicianName = splited1[0];
+					String clinicianSurname = splited1[1];
 					try {
 						look_up.addAppointment(ID, patientsID, date, time, clinic, clinician, type, status);
 					} catch (RemoteException | SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					diarytableModel.addRow(new Object[] { ID, patientsID, name, surname, phone, date, clinicianName,
+							clinicianSurname, clinic, time, type });
+					diarytableModel.fireTableDataChanged();
 				}
 			}
 		});
@@ -169,6 +201,63 @@ public class Receptionist_GUI extends JFrame {
 		tab1.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = diaryTable.getSelectedRow();
+
+				if (row >= 0) {
+					appointmentid1.setText(diarytableModel.getValueAt(row, 0).toString());
+					patientsid3.setText((String) diarytableModel.getValueAt(row, 1));
+					patientsname2.setText((String) diarytableModel.getValueAt(row, 2));
+					patientssurname2.setText((String) diarytableModel.getValueAt(row, 3));
+					patientstelephone2.setText((String) diarytableModel.getValueAt(row, 4));
+					appointmentdate1.setText((String) diarytableModel.getValueAt(row, 5));
+					cliniciansname2.setText((String) diarytableModel.getValueAt(row, 6));
+					clinicianssurname2.setText((String) diarytableModel.getValueAt(row, 7));
+					clinicname.setText((String) diarytableModel.getValueAt(row, 8));
+					appointmenttime2.setText((String) diarytableModel.getValueAt(row, 9));
+					int result = JOptionPane.showConfirmDialog(null, myPanel4, "Edit patient information",
+							JOptionPane.OK_CANCEL_OPTION, 0,
+							new ImageIcon(Receptionist_GUI.class.getResource("/img/pencil.png")));
+
+					if (result == JOptionPane.OK_OPTION) {
+						int ID = Integer.parseInt(appointmentid1.getText());
+						int patientsID=Integer.parseInt(patientsid3.getText());
+						String date = appointmentdate1.getText();
+						int clinicianID = 0;
+						try {
+							clinicianID = look_up.getClinicianID(cliniciansname2.getText(),clinicianssurname2.getText());
+						} catch (RemoteException | SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						String Name = patientsname2.getText();
+						String Surname = patientssurname2.getText();
+						String Telephone = patientstelephone2.getText();
+						String Clinician_name = cliniciansname2.getText();
+						String Clinician_surname = clinicianssurname2.getText();
+						String Clinic = clinicname.getText();
+						String Time = appointmenttime2.getText();
+						String Type = typeComboBox1.getSelectedItem().toString();
+						
+						 try {
+							look_up.editAppointment(ID, date,patientsID,clinicianID,Clinic,Time,Type);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (RemoteException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						 diarytableModel.removeRow(row);
+						 diarytableModel.addRow(new Object[] { ID, patientsID, Name, Surname, Telephone, date,Clinician_name,
+									Clinician_surname, Clinic, Time, Type });
+						diarytableModel.fireTableDataChanged();
+					}
+				}
+			}
+		});
 
 		btnNewButton_1.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/pencil.png")));
 		btnNewButton_1.setBounds(889, 375, 58, 51);
@@ -242,7 +331,6 @@ public class Receptionist_GUI extends JFrame {
 		myPanel3.add(appointmentid);
 		myPanel3.add(new JLabel("Patients ID:"));
 		myPanel3.add(patientsid2);
-
 		myPanel3.add(new JLabel("Clinic:"));
 		Object[] clinics = look_up.getClinics();
 		if (clinics == null)
@@ -250,9 +338,9 @@ public class Receptionist_GUI extends JFrame {
 		else {
 			for (int i = 0; i < clinics.length; i++)
 				clinicsComboBox.addItem((clinics[i]).toString());
-			myPanel3.add(clinicsComboBox);
-		}
 
+		}
+		myPanel3.add(clinicsComboBox);
 		myPanel3.add(new JLabel("Clinician:"));
 		Object[] clinicians = look_up.getClinicians();
 		if (clinicians == null)
@@ -260,8 +348,8 @@ public class Receptionist_GUI extends JFrame {
 		else {
 			for (int i = 0; i < clinicians.length; i++)
 				cliniciansComboBox.addItem((clinicians[i]).toString());
-			myPanel3.add(cliniciansComboBox);
 		}
+		myPanel3.add(cliniciansComboBox);
 
 		myPanel3.add(new JLabel("Date: (YYYY-MM-DD)"));
 		myPanel3.add(appointmentdate);
@@ -275,6 +363,46 @@ public class Receptionist_GUI extends JFrame {
 		statusComboBox.addItem("SHOW_UP");
 		statusComboBox.addItem("NOT_SHOW_UP");
 		myPanel3.add(statusComboBox);
+
+		// *******************************************************
+
+		// *************** panel for edit appointment ************
+		myPanel4.setLayout(new BoxLayout(myPanel4, BoxLayout.Y_AXIS));
+		myPanel4.add(new JLabel("Appointment ID:"));
+		myPanel4.add(appointmentid1);
+		appointmentid1.setEnabled(false);
+
+		myPanel4.add(new JLabel("Appointment Date:"));
+		myPanel4.add(appointmentdate1);
+		myPanel4.add(new JLabel("Appointment Time:"));
+		myPanel4.add(appointmenttime2);
+		myPanel4.add(new JLabel("Patients ID:"));
+		myPanel4.add(patientsid3);
+		myPanel4.add(new JLabel("Clinic:"));
+		clinics = look_up.getClinics();
+		if (clinics == null)
+			System.out.println("null");
+		else {
+			for (int i = 0; i < clinics.length; i++)
+				clinicsComboBox1.addItem((clinics[i]).toString());
+			myPanel4.add(clinicsComboBox1);
+		}
+		clinicsComboBox1.setSelectedItem(clinicname);
+		myPanel4.add(new JLabel("Clinician:"));
+		clinicians = look_up.getClinicians();
+		if (clinicians == null)
+			System.out.println("null");
+		else {
+			for (int i = 0; i < clinicians.length; i++)
+				cliniciansComboBox1.addItem((clinicians[i]).toString());
+			myPanel4.add(cliniciansComboBox1);
+		}
+		cliniciansComboBox1.setSelectedItem(cliniciansname2 + " " + clinicianssurname2);
+		myPanel4.add(new JLabel("Type:"));
+		typeComboBox1.addItem("PRE_ARRANGED");
+		typeComboBox1.addItem("DROP_IN");
+		myPanel4.add(typeComboBox1);
+		typeComboBox1.setSelectedItem(appointmenttype1);
 
 		// *******************************************************8
 
@@ -314,30 +442,7 @@ public class Receptionist_GUI extends JFrame {
 		tab2.add(button_1);
 
 		JButton btnNewButton_4 = new JButton("");
-		// btnNewButton_4.addMouseListener(new MouseAdapter() {
-		// @Override
-		// public void mouseClicked(MouseEvent e) {
-		//
-		// patientsEntry = null;
-		// try {
-		// patientsEntry = look_up.fillPatients();
-		// } catch (RemoteException | SQLException e1) {
-		// // TODO Auto-generated catch block
-		// e1.printStackTrace();
-		// }
-		//
-		// patientstableModel = new DefaultTableModel(patientsEntry,
-		// patientsColumns);
-		// patientsTable = new JTable(patientstableModel);
-		// patientsTable.setBounds(64, 325, 1204, 325);
-		// patientsTable.getTableHeader().setBackground(Color.pink);
-		// patientsTable.getTableHeader().setForeground(Color.blue);
-		// patientsTable.getTableHeader().setFont(tf);
-		// patientsscrollpane = new JScrollPane(patientsTable);
-		// patientsscrollpane.setBounds(64, 325, 1204, 325);
-		// tab2.add(patientsscrollpane);
-		// }
-		// });
+
 		btnNewButton_4.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/refresh.png")));
 		btnNewButton_4.setBounds(1280, 415, 58, 54);
 		tab2.add(btnNewButton_4);

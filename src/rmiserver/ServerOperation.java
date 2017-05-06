@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JTextField;
+
 import rmiinterface.RMIInterface;
 
 public class ServerOperation extends UnicastRemoteObject implements RMIInterface {
@@ -84,7 +86,7 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 	@Override
 	public Object[][] fillDiary() throws RemoteException, SQLException {
 		Object[][] diaryEntry = null;
-		String query = "select patient.id,patient.firstname,patient."
+		String query = "select appointment.id, patient.id,patient.firstname,patient."
 				+ "lastname,patient.phonenumber, appointment.date,user.firstname,"
 				+ "user.lastname,appointment.clinic,appointment.time, appointment.type "
 				+ "from user,patient,appointment "
@@ -97,9 +99,9 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 		rs.last();
 		size = rs.getRow();
 		rs.beforeFirst();
-		diaryEntry = new Object[size][10];
+		diaryEntry = new Object[size][11];
 		while (rs.next()) {
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 11; i++)
 				diaryEntry[c][i] = rs.getString(i + 1);
 			c++;
 		}
@@ -161,38 +163,38 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 	}
 
 	@Override
-	public Object[] getClinics() throws SQLException,RemoteException {
+	public Object[] getClinics() throws SQLException, RemoteException {
 		Object[] result = null;
-		String query = "SELECT name  FROM clinic ";		
+		String query = "SELECT name  FROM clinic ";
 		Statement stat = conn.createStatement();
 		ResultSet rs = stat.executeQuery(query);
-		int i=0;
+		int i = 0;
 		int size = 0;
 		rs.last();
 		size = rs.getRow();
 		rs.beforeFirst();
 		result = new Object[size];
-		while (rs.next()) {			
-				result[i++] = rs.getString(1);			
+		while (rs.next()) {
+			result[i++] = rs.getString(1);
 		}
 		return result;
 
 	}
-	
+
 	@Override
-	public Object[] getClinicians() throws SQLException,RemoteException {
+	public Object[] getClinicians() throws SQLException, RemoteException {
 		Object[] result = null;
-		String query = "SELECT firstname,lastname  FROM user where type='CLINICAL_STAFF'";		
+		String query = "SELECT firstname,lastname  FROM user where type='CLINICAL_STAFF'";
 		Statement stat = conn.createStatement();
 		ResultSet rs = stat.executeQuery(query);
-		int i=0;
+		int i = 0;
 		int size = 0;
 		rs.last();
 		size = rs.getRow();
 		rs.beforeFirst();
 		result = new Object[size];
-		while (rs.next()) {			
-				result[i++] = rs.getString(1)+" "+rs.getString(2);			
+		while (rs.next()) {
+			result[i++] = rs.getString(1) + " " + rs.getString(2);
 		}
 		return result;
 
@@ -200,40 +202,75 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 
 	@Override
 	public void addAppointment(int iD, int patientsID, String date, String time, String clinic, String clinician,
-			String type, String status) throws SQLException,RemoteException {
-		String fullname= clinician;
+			String type, String status) throws SQLException, RemoteException {
+		String fullname = clinician;
 		String[] splited = fullname.split("\\s+");
-		String name= splited[0];
+		String name = splited[0];
 		String surname = splited[1];
-		String prequery = "select id from user where firstname='"+name+"' and lastname='"+surname+"'";
+		String prequery = "select id from user where firstname='" + name + "' and lastname='" + surname + "'";
 		Statement stat = conn.createStatement();
 		ResultSet rs = stat.executeQuery(prequery);
 		rs.next();
-		String cliniciansID=rs.getString(1);		
-		
-		String query = "INSERT INTO appointment values ( " + "'" + iD + "','" + date + "','" + patientsID+ "','" + cliniciansID
-				+ "','" + clinic + "','" + time + "','" + type + "','" + status + "')";
+		String cliniciansID = rs.getString(1);
+
+		String query = "INSERT INTO appointment values ( " + "'" + iD + "','" + date + "','" + patientsID + "','"
+				+ cliniciansID + "','" + clinic + "','" + time + "','" + type + "','" + status + "')";
 		stat.executeUpdate(query);
 		System.out.println("Added new appointment with ID = " + iD);
-		
+
+	}
+
+	@Override
+	public String getPatientsFullName(int patientsID) throws SQLException, RemoteException {
+		Object[] result = null;
+		String query = "SELECT firstname,lastname,phonenumber  FROM patient where id='"+patientsID+"'";		
+		Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(query);
+		int i=0;
+		int size = 0;
+		rs.last();
+		size = rs.getRow();
+		rs.beforeFirst();
+		result = new Object[size];
+		while (rs.next()) {			
+				result[0] = rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3);			
+		}
+		String res=result[0].toString();
+		return res;
 		
 	}
 
-//	@Override
-//	public String[] getClinicians() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String[] getAppointmentType() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String[] getStatus() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public int getClinicianID(String name ,String surname) throws SQLException {
+		Object[] result = null;
+		String query = "SELECT id  FROM user where firstname='"+name+"' and lastname='"+surname+"'";		
+		Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(query);
+		int i=0;
+		int size = 0;
+		rs.last();
+		size = rs.getRow();
+		rs.beforeFirst();
+		result = new Object[size];
+		while (rs.next()) {			
+				result[0] = rs.getString(1);			
+		}
+		String res=result[0].toString();
+		int a = Integer.parseInt(res);
+		return a;	
+		}
+
+	@Override
+	public void editAppointment(int iD, String date, int patientsID, int clinicianID, String clinic, String time,
+			String type) throws SQLException,RemoteException {
+		String query = "UPDATE appointment SET date = '" + date + "', patient = '" + patientsID
+				+ "', clinician = '" + clinicianID + "', clinic = '" + clinic + "', time = '" + time
+				+ "', type = '" + type + "' where id= '"+iD+"'";
+
+		Statement stat = conn.createStatement();
+		stat.executeUpdate(query);
+				
+	}
+
+	
 }
