@@ -44,7 +44,7 @@ public class mainApplication {
 			new Receptionist_GUI(currentUser,look_up);
 			break;
 		case "MEDICAL_RECORD_STAFF":
-			new MedicalRecordsStaff_GUI();
+			new MedicalRecordsStaff_GUI(look_up);
 			break;
 		case "HEALTH_SERVICE_MANAGEMENT":
 			//new Management_GUI(currentUser);
