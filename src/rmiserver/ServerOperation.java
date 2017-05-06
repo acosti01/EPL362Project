@@ -134,24 +134,19 @@ public class ServerOperation extends UnicastRemoteObject
 	public void addPatient(int id, String name, String surname, String email,
 			String address, String bday, String tel, String gender)
 			throws RemoteException, SQLException {
-		
-		String query = "INSERT INTO PATIENT values ( "
-					+ "'" + id + "','" 
-					+ name + "','" 
-					+ surname + "','" 
-					+ email + "','"
-					+ address + "','" 
-					+ tel + "','"
-					+ bday + "','" 
-					+ gender + "')";
+
+		String query = "INSERT INTO PATIENT values ( " + "'" + id + "','" + name
+				+ "','" + surname + "','" + email + "','" + address + "','"
+				+ tel + "','" + bday + "','" + gender + "')";
 
 		Statement stat = conn.createStatement();
 		stat.executeUpdate(query);
 		System.out.println("Added new patient with ID = " + id);
 	}
+
 	@Override
-	public void deletePatient(Object id) throws RemoteException, SQLException{
-		
+	public void deletePatient(Object id) throws RemoteException, SQLException {
+
 		String query = "DELETE FROM PATIENT WHERE id = '" + id + "'";
 		Statement stat = conn.createStatement();
 		stat.executeUpdate(query);

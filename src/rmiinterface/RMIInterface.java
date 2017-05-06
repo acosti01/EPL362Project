@@ -19,5 +19,4 @@ public interface RMIInterface extends Remote {
 			throws RemoteException, SQLException;
 
 	void deletePatient(Object id) throws SQLException, RemoteException;
-
 }
