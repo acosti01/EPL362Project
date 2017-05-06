@@ -63,17 +63,17 @@ public class ServerOperation extends UnicastRemoteObject
 	public ArrayList<String> validate(String username, String password)
 			throws RemoteException, SQLException {
 		ArrayList<String> a = new ArrayList<String>();
-		System.out.println("Trying to login with username =" + username);
+		System.out.println("Trying to login with username = " + username);
 		String query = "SELECT * FROM user WHERE " + "username='" + username
 				+ "' " + "AND password='" + password + "'";
 		Statement stat = conn.createStatement();
 
 		ResultSet rs = stat.executeQuery(query);
 		if (!rs.next()) {
-			System.out.println("No such user");
+			System.out.println("No such user!");
 			return null;
 		} else {
-			System.out.println("Login was successful");
+			System.out.println("Login was successful!");
 			int c = 1;
 			java.sql.ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -134,6 +134,7 @@ public class ServerOperation extends UnicastRemoteObject
 	public void addPatient(int id, String name, String surname, String email,
 			String address, String bday, String tel, String gender)
 			throws RemoteException, SQLException {
+		
 		String query = "INSERT INTO PATIENT values ( "
 					+ "'" + id + "','" 
 					+ name + "','" 
@@ -146,6 +147,14 @@ public class ServerOperation extends UnicastRemoteObject
 
 		Statement stat = conn.createStatement();
 		stat.executeUpdate(query);
+		System.out.println("Added new patient with ID = " + id);
+	}
+	@Override
+	public void deletePatient(Object id) throws RemoteException, SQLException{
 		
+		String query = "DELETE FROM PATIENT WHERE id = '" + id + "'";
+		Statement stat = conn.createStatement();
+		stat.executeUpdate(query);
+		System.out.println("Deleted patient with ID = " + id);
 	}
 }
