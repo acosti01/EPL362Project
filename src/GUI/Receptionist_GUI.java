@@ -8,25 +8,17 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import Entities.User;
 import rmiinterface.RMIInterface;
-
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -36,11 +28,9 @@ import java.awt.event.MouseEvent;
 
 public class Receptionist_GUI extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JPanel myPanel = new JPanel();
+	JPanel myPanel1 = new JPanel();
 	JTextField id = new JTextField(20);
 	JTextField name = new JTextField(20);
 	JTextField surname = new JTextField(20);
@@ -49,6 +39,14 @@ public class Receptionist_GUI extends JFrame {
 	JTextField telephone = new JTextField(20);
 	JTextField birthday = new JTextField(20);
 	JTextField gender = new JTextField(20);
+	JTextField id1 = new JTextField(20);
+	JTextField name1 = new JTextField(20);
+	JTextField surname1 = new JTextField(20);
+	JTextField email1 = new JTextField(20);
+	JTextField address1 = new JTextField(20);
+	JTextField telephone1 = new JTextField(20);
+	JTextField birthday1 = new JTextField(20);
+	JTextField gender1 = new JTextField(20);
 
 	Object[][] patientsEntry;
 	String[] patientsColumns = { "ID", "Name", "Surname", "Email", "Address",
@@ -247,42 +245,103 @@ public class Receptionist_GUI extends JFrame {
 		tab2.add(button_1);
 
 		JButton btnNewButton_4 = new JButton("");
-//		btnNewButton_4.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//
-//				patientsEntry = null;
-//				try {
-//					patientsEntry = look_up.fillPatients();
-//				} catch (RemoteException | SQLException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//
-//				patientstableModel = new DefaultTableModel(patientsEntry,
-//						patientsColumns);
-//				patientsTable = new JTable(patientstableModel);
-//				patientsTable.setBounds(64, 325, 1204, 325);
-//				patientsTable.getTableHeader().setBackground(Color.pink);
-//				patientsTable.getTableHeader().setForeground(Color.blue);
-//				patientsTable.getTableHeader().setFont(tf);
-//				patientsscrollpane = new JScrollPane(patientsTable);
-//				patientsscrollpane.setBounds(64, 325, 1204, 325);
-//				tab2.add(patientsscrollpane);
-//			}
-//		});
+		// btnNewButton_4.addMouseListener(new MouseAdapter() {
+		// @Override
+		// public void mouseClicked(MouseEvent e) {
+		//
+		// patientsEntry = null;
+		// try {
+		// patientsEntry = look_up.fillPatients();
+		// } catch (RemoteException | SQLException e1) {
+		// // TODO Auto-generated catch block
+		// e1.printStackTrace();
+		// }
+		//
+		// patientstableModel = new DefaultTableModel(patientsEntry,
+		// patientsColumns);
+		// patientsTable = new JTable(patientstableModel);
+		// patientsTable.setBounds(64, 325, 1204, 325);
+		// patientsTable.getTableHeader().setBackground(Color.pink);
+		// patientsTable.getTableHeader().setForeground(Color.blue);
+		// patientsTable.getTableHeader().setFont(tf);
+		// patientsscrollpane = new JScrollPane(patientsTable);
+		// patientsscrollpane.setBounds(64, 325, 1204, 325);
+		// tab2.add(patientsscrollpane);
+		// }
+		// });
 		btnNewButton_4.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/refresh.png")));
 		btnNewButton_4.setBounds(1280, 415, 58, 54);
 		tab2.add(btnNewButton_4);
 		btnNewButton_4.setEnabled(false);
 		JButton button_2 = new JButton("");
-
 		button_2.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/pencil.png")));
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 25));
 		button_2.setBounds(1278, 503, 58, 54);
 		tab2.add(button_2);
+
+		myPanel1.setLayout(new BoxLayout(myPanel1, BoxLayout.Y_AXIS));
+		myPanel1.add(new JLabel("ID:"));
+		myPanel1.add(id1);
+		myPanel1.add(new JLabel("Name:"));
+		myPanel1.add(name1);
+		myPanel1.add(new JLabel("Surname:"));
+		myPanel1.add(surname1);
+		myPanel1.add(new JLabel("Email:"));
+		myPanel1.add(email1);
+		myPanel1.add(new JLabel("Address:"));
+		myPanel1.add(address1);
+		myPanel1.add(new JLabel("Telephone:"));
+		myPanel1.add(telephone1);
+		myPanel1.add(new JLabel("Birthday:"));
+		myPanel1.add(birthday1);
+		myPanel1.add(new JLabel("Gender:"));
+		myPanel1.add(gender1);
+
+		button_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				int row = patientsTable.getSelectedRow();
+
+				if (row >= 0) {
+					id1.setText((String) patientstableModel.getValueAt(row, 0));
+					id1.setEditable(false);
+					name1.setText((String) patientstableModel.getValueAt(row, 1));
+					surname1.setText((String) patientstableModel.getValueAt(row, 2));
+					email1.setText((String) patientstableModel.getValueAt(row, 3));
+					address1.setText((String) patientstableModel.getValueAt(row, 4));
+					telephone1.setText((String) patientstableModel.getValueAt(row, 5));
+					birthday1.setText((String) patientstableModel.getValueAt(row, 6));
+					gender1.setText((String) patientstableModel.getValueAt(row, 7));
+					gender1.setEditable(false);
+					
+					int result = JOptionPane.showConfirmDialog(null, myPanel1,
+							"Edit patient information",
+							JOptionPane.OK_CANCEL_OPTION, 0,
+							new ImageIcon(Receptionist_GUI.class
+									.getResource("/img/pencil.png")));
+					
+					if (result == JOptionPane.OK_OPTION) {
+						int ID = Integer.parseInt(id1.getText());
+						String Name = name1.getText();
+						String Surname = surname1.getText();
+						String Email = email1.getText();
+						String Address = address1.getText();
+						String tel = telephone1.getText();
+						String bday = birthday1.getText();
+						String Gender = gender1.getText();
+						
+						try {
+							look_up.editPatient(ID, Name, Surname, Email, Address, bday, tel, Gender);
+						} catch (RemoteException | SQLException e1) {
+							e1.printStackTrace();
+						}
+					}
+				}
+			}
+		});
 
 		JButton button_3 = new JButton("");
 		button_3.addMouseListener(new MouseAdapter() {
@@ -308,7 +367,7 @@ public class Receptionist_GUI extends JFrame {
 		button_3.setFont(new Font("Tahoma", Font.BOLD, 25));
 		button_3.setBounds(1278, 596, 58, 54);
 		tab2.add(button_3);
-		
+
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/patient.png")));

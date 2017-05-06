@@ -19,4 +19,8 @@ public interface RMIInterface extends Remote {
 			throws RemoteException, SQLException;
 
 	void deletePatient(Object id) throws SQLException, RemoteException;
+
+	void editPatient(int id, String name, String surname, String email,
+			String address, String bday, String tel, String gender)
+			throws RemoteException, SQLException;
 }

@@ -145,6 +145,22 @@ public class ServerOperation extends UnicastRemoteObject
 	}
 
 	@Override
+	public void editPatient(int id, String name, String surname, String email,
+			String address, String bday, String tel, String gender)
+			throws RemoteException, SQLException {
+
+		String query = "UPDATE PATIENT SET firstname = " + "'" + name
+				+ "', lastname = '" + surname + "', relative_email = '" + email
+				+ "', address = '" + address + "', phonenumber = '" + tel
+				+ "', birthday = '" + bday + "', gender = '" + gender
+				+ "'where id = '" + id + "'";
+
+		Statement stat = conn.createStatement();
+		stat.executeUpdate(query);
+		System.out.println("Edited patient with ID = " + id);
+	}
+
+	@Override
 	public void deletePatient(Object id) throws RemoteException, SQLException {
 
 		String query = "DELETE FROM PATIENT WHERE id = '" + id + "'";
