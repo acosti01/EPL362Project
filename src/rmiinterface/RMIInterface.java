@@ -49,9 +49,5 @@ public interface RMIInterface extends Remote {
 
 	public String getUserPassword(int iD) throws SQLException, RemoteException;
 
-	// public String[] getClinicians();
-	//
-	// public String[] getAppointmentType();
-	//
-	// public String[] getStatus();
+	
 }

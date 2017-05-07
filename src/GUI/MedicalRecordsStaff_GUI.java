@@ -136,7 +136,6 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 					try {
 						look_up.addUser(ID, Name, Surname, Email, username, tel, password, type);
 					} catch (RemoteException | SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
@@ -176,32 +175,28 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 						String Email = personnelemail1.getText();
 						String username = personneluser1.getText();
 						String password = new String(personnelpass1.getPassword());
-						if (password.length()==0){
+						if (password.length() == 0) {
 							try {
-								password=look_up.getUserPassword(ID);
+								password = look_up.getUserPassword(ID);
 							} catch (SQLException e2) {
-								// TODO Auto-generated catch block
 								e2.printStackTrace();
 							} catch (RemoteException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-							System.out.println("password is "+password);
+							System.out.println("password is " + password);
 						}
 						String Type = comboBoxtype1.getSelectedItem().toString();
 
 						try {
 							look_up.editUser(ID, Name, Surname, Telephone, Email, username, password, Type);
 						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (RemoteException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						personnelTableModel.removeRow(row);
 						personnelTableModel
-								.addRow(new Object[] { ID, Name, Surname, Email,Telephone, username, Type });
+								.addRow(new Object[] { ID, Name, Surname, Email, Telephone, username, Type });
 						personnelTableModel.fireTableDataChanged();
 					}
 				}

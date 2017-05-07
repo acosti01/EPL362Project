@@ -287,10 +287,8 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 	@Override
 	public Object[][] fillUser() throws RemoteException, SQLException {
 		Object[][] Entry = null;
-		String query = "select user.id, user.firstname,user."
-				+ "lastname,user.email, user.phonenumber,"
-				+ "user.username,user.type "
-				+ "from user ORDER by user.lastname";
+		String query = "select user.id, user.firstname,user." + "lastname,user.email, user.phonenumber,"
+				+ "user.username,user.type " + "from user ORDER by user.lastname";
 
 		Statement stat = conn.createStatement();
 		ResultSet rs = stat.executeQuery(query);
@@ -312,8 +310,8 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 	public void addUser(int iD, String name, String surname, String email, String username, String tel, String password,
 			String type) throws RemoteException, SQLException {
 
-		String query = "INSERT INTO user values ( " + "'" + iD + "','" + name + "','" + surname + "','" + email
-				+ "','" + username + "','" + tel + "','" + password + "','" + type + "')";
+		String query = "INSERT INTO user values ( " + "'" + iD + "','" + name + "','" + surname + "','" + email + "','"
+				+ username + "','" + tel + "','" + password + "','" + type + "')";
 
 		Statement stat = conn.createStatement();
 		stat.executeUpdate(query);
@@ -324,8 +322,8 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 	public void editUser(int iD, String name, String surname, String telephone, String email, String username,
 			String password, String type) throws SQLException, RemoteException {
 		String query = "UPDATE user SET password = '" + password + "', firstname = '" + name + "', lastname = '"
-				+ surname + "', email = '" + email + "', phonenumber = '" + telephone + "', username = '" + username + "', type = '" + type + "' where id= '"
-				+ iD + "'";
+				+ surname + "', email = '" + email + "', phonenumber = '" + telephone + "', username = '" + username
+				+ "', type = '" + type + "' where id= '" + iD + "'";
 		Statement stat = conn.createStatement();
 		stat.executeUpdate(query);
 
@@ -333,11 +331,11 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 
 	@Override
 	public String getUserPassword(int iD) throws SQLException {
-		String query = "select password from user where id='"+iD+"'";		
+		String query = "select password from user where id='" + iD + "'";
 		Statement stat = conn.createStatement();
 		ResultSet rs = stat.executeQuery(query);
 		rs.next();
 		return rs.getString(1);
-		
+
 	}
 }
