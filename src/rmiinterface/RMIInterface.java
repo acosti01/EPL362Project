@@ -25,8 +25,8 @@ public interface RMIInterface extends Remote {
 
 	public Object[] getClinics() throws SQLException, RemoteException;
 
-	public int addAppointment(int iD, String date, String time, String clinic, String clinician,
-			String type, String status) throws SQLException, RemoteException;
+	public int addAppointment(int iD, String date, String time, String clinic, String clinician, String type,
+			String status) throws SQLException, RemoteException;
 
 	public Object[] getClinicians() throws SQLException, RemoteException;
 
@@ -38,6 +38,16 @@ public interface RMIInterface extends Remote {
 			String type) throws SQLException, RemoteException;
 
 	public void deleteAppointment(Object id) throws RemoteException, SQLException;
+
+	public Object[][] fillUser() throws RemoteException, SQLException;
+
+	public void addUser(int iD, String name, String surname, String email, String username, String tel, String password,
+			String type) throws RemoteException, SQLException;
+
+	public void editUser(int iD, String name, String surname, String telephone, String email, String username,
+			String password, String type) throws SQLException, RemoteException;
+
+	public String getUserPassword(int iD) throws SQLException, RemoteException;
 
 	// public String[] getClinicians();
 	//
