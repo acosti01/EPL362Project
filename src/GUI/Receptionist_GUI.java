@@ -159,8 +159,7 @@ public class Receptionist_GUI extends JFrame {
 						new ImageIcon(Receptionist_GUI.class.getResource("/img/add.png")));
 
 				if (result == JOptionPane.OK_OPTION) {
-
-					int ID = Integer.parseInt(appointmentid.getText());
+					int appID = 0;
 					int patientsID = Integer.parseInt(patientsid2.getText());
 					String date = appointmentdate.getText();
 					String time = appointmenttime.getText();
@@ -183,12 +182,12 @@ public class Receptionist_GUI extends JFrame {
 					String clinicianName = splited1[0];
 					String clinicianSurname = splited1[1];
 					try {
-						look_up.addAppointment(ID, patientsID, date, time, clinic, clinician, type, status);
+						appID=look_up.addAppointment(patientsID, date, time, clinic, clinician, type, status);
 					} catch (RemoteException | SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					diarytableModel.addRow(new Object[] { ID, patientsID, name, surname, phone, date, clinicianName,
+					diarytableModel.addRow(new Object[] { appID, patientsID, name, surname, phone, date, clinicianName,
 							clinicianSurname, clinic, time, type });
 					diarytableModel.fireTableDataChanged();
 				}
@@ -208,7 +207,7 @@ public class Receptionist_GUI extends JFrame {
 
 				if (row >= 0) {
 					appointmentid1.setText(diarytableModel.getValueAt(row, 0).toString());
-					patientsid3.setText(diarytableModel.getValueAt(row, 1).toString());
+					patientsid3.setText( diarytableModel.getValueAt(row, 1).toString());
 					patientsname2.setText((String) diarytableModel.getValueAt(row, 2));
 					patientssurname2.setText((String) diarytableModel.getValueAt(row, 3));
 					patientstelephone2.setText((String) diarytableModel.getValueAt(row, 4));
@@ -217,17 +216,18 @@ public class Receptionist_GUI extends JFrame {
 					clinicianssurname2.setText((String) diarytableModel.getValueAt(row, 7));
 					clinicname.setText((String) diarytableModel.getValueAt(row, 8));
 					appointmenttime2.setText((String) diarytableModel.getValueAt(row, 9));
-					int result = JOptionPane.showConfirmDialog(null, myPanel4, "Edit appointment information",
+					int result = JOptionPane.showConfirmDialog(null, myPanel4, "Edit patient information",
 							JOptionPane.OK_CANCEL_OPTION, 0,
 							new ImageIcon(Receptionist_GUI.class.getResource("/img/pencil.png")));
 
 					if (result == JOptionPane.OK_OPTION) {
 						int ID = Integer.parseInt(appointmentid1.getText());
-						int patientsID=Integer.parseInt(patientsid3.getText());
+						int patientsID = Integer.parseInt(patientsid3.getText());
 						String date = appointmentdate1.getText();
 						int clinicianID = 0;
 						try {
-							clinicianID = look_up.getClinicianID(cliniciansname2.getText(),clinicianssurname2.getText());
+							clinicianID = look_up.getClinicianID(cliniciansname2.getText(),
+									clinicianssurname2.getText());
 						} catch (RemoteException | SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -240,9 +240,9 @@ public class Receptionist_GUI extends JFrame {
 						String Clinic = clinicname.getText();
 						String Time = appointmenttime2.getText();
 						String Type = typeComboBox1.getSelectedItem().toString();
-						
-						 try {
-							look_up.editAppointment(ID, date,patientsID,clinicianID,Clinic,Time,Type);
+
+						try {
+							look_up.editAppointment(ID, date, patientsID, clinicianID, Clinic, Time, Type);
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -250,9 +250,8 @@ public class Receptionist_GUI extends JFrame {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						 diarytableModel.removeRow(row);
-						 diarytableModel.addRow(new Object[] { ID, patientsID, Name, Surname, Telephone, date,Clinician_name,
-									Clinician_surname, Clinic, Time, Type });
+						diarytableModel.addRow(new Object[] { ID, patientsID, Name, Surname, Telephone, date,
+								Clinician_name, Clinician_surname, Clinic, Time, Type });
 						diarytableModel.fireTableDataChanged();
 					}
 				}
@@ -274,6 +273,25 @@ public class Receptionist_GUI extends JFrame {
 		tab1.add(btnNewButton_3);
 
 		JButton button = new JButton("");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {// delete button apt
+
+				int row = diaryTable.getSelectedRow();
+				if (row >= 0) {
+					Object id = diarytableModel.getValueAt(row, 0);
+					try {
+						look_up.deleteAppointment(id);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+					diarytableModel.removeRow(row);
+					diarytableModel.fireTableDataChanged();				
+			}
+			}
+		});
 		button.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/delete.png")));
 		button.setBounds(889, 560, 58, 51);
 		tab1.add(button);
@@ -431,7 +449,7 @@ public class Receptionist_GUI extends JFrame {
 						e1.printStackTrace();
 					}
 
-					patientstableModel.addRow(new Object[] { ID, Name, Surname, Email, Address, tel, bday, Gender });
+					patientstableModel.addRow(new Object[] { ID, Name, Surname, Email, Address, tel,bday, Gender });
 					patientstableModel.fireTableDataChanged();
 				}
 			}
@@ -507,7 +525,7 @@ public class Receptionist_GUI extends JFrame {
 							look_up.editPatient(ID, Name, Surname, Email, Address, bday, tel, Gender);
 							patientstableModel.removeRow(row);
 							patientstableModel
-									.addRow(new Object[] { ID, Name, Surname, Email, Address, tel, bday, Gender });
+									.addRow(new Object[] { ID, Name, Surname, Email, Address, tel,bday, Gender });
 							patientstableModel.fireTableDataChanged();
 						} catch (RemoteException | SQLException e1) {
 							e1.printStackTrace();
