@@ -226,7 +226,6 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 		String query = "SELECT firstname,lastname,phonenumber  FROM patient where id='"+patientsID+"'";		
 		Statement stat = conn.createStatement();
 		ResultSet rs = stat.executeQuery(query);
-		int i=0;
 		int size = 0;
 		rs.last();
 		size = rs.getRow();
@@ -246,7 +245,6 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 		String query = "SELECT id  FROM user where firstname='"+name+"' and lastname='"+surname+"'";		
 		Statement stat = conn.createStatement();
 		ResultSet rs = stat.executeQuery(query);
-		int i=0;
 		int size = 0;
 		rs.last();
 		size = rs.getRow();
