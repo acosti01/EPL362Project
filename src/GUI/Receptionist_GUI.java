@@ -223,11 +223,12 @@ public class Receptionist_GUI extends JFrame {
 
 					if (result == JOptionPane.OK_OPTION) {
 						int ID = Integer.parseInt(appointmentid1.getText());
-						int patientsID=Integer.parseInt(patientsid3.getText());
+						int patientsID = Integer.parseInt(patientsid3.getText());
 						String date = appointmentdate1.getText();
 						int clinicianID = 0;
 						try {
-							clinicianID = look_up.getClinicianID(cliniciansname2.getText(),clinicianssurname2.getText());
+							clinicianID = look_up.getClinicianID(cliniciansname2.getText(),
+									clinicianssurname2.getText());
 						} catch (RemoteException | SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -240,9 +241,9 @@ public class Receptionist_GUI extends JFrame {
 						String Clinic = clinicname.getText();
 						String Time = appointmenttime2.getText();
 						String Type = typeComboBox1.getSelectedItem().toString();
-						
-						 try {
-							look_up.editAppointment(ID, date,patientsID,clinicianID,Clinic,Time,Type);
+
+						try {
+							look_up.editAppointment(ID, date, patientsID, clinicianID, Clinic, Time, Type);
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -250,9 +251,9 @@ public class Receptionist_GUI extends JFrame {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						 diarytableModel.removeRow(row);
-						 diarytableModel.addRow(new Object[] { ID, patientsID, Name, Surname, Telephone, date,Clinician_name,
-									Clinician_surname, Clinic, Time, Type });
+						diarytableModel.removeRow(row);
+						diarytableModel.addRow(new Object[] { ID, patientsID, Name, Surname, Telephone, date,
+								Clinician_name, Clinician_surname, Clinic, Time, Type });
 						diarytableModel.fireTableDataChanged();
 					}
 				}
@@ -274,6 +275,25 @@ public class Receptionist_GUI extends JFrame {
 		tab1.add(btnNewButton_3);
 
 		JButton button = new JButton("");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {// delete button apt
+
+				int row = diaryTable.getSelectedRow();
+				if (row >= 0) {
+					Object id = diarytableModel.getValueAt(row, 0);
+					try {
+						look_up.deleteAppointment(id);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+					diarytableModel.removeRow(row);
+					diarytableModel.fireTableDataChanged();				
+			}
+			}
+		});
 		button.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/delete.png")));
 		button.setBounds(889, 560, 58, 51);
 		tab1.add(button);

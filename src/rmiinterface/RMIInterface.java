@@ -37,6 +37,8 @@ public interface RMIInterface extends Remote {
 	public void editAppointment(int iD, String date, int patientsID, int clinicianID, String clinic, String time,
 			String type) throws SQLException, RemoteException;
 
+	public void deleteAppointment(Object id) throws RemoteException, SQLException;
+
 	// public String[] getClinicians();
 	//
 	// public String[] getAppointmentType();

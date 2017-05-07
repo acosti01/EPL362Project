@@ -267,5 +267,13 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 				
 	}
 
+	@Override
+	public void deleteAppointment(Object id) throws RemoteException, SQLException {
+
+		String query = "DELETE FROM appointment WHERE id = '" + id + "'";
+		Statement stat = conn.createStatement();
+		stat.executeUpdate(query);
+		System.out.println("Deleted appointment with ID = " + id);
+	}
 	
 }
