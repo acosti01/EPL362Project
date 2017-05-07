@@ -208,7 +208,7 @@ public class Receptionist_GUI extends JFrame {
 
 				if (row >= 0) {
 					appointmentid1.setText(diarytableModel.getValueAt(row, 0).toString());
-					patientsid3.setText((String) diarytableModel.getValueAt(row, 1));
+					patientsid3.setText(diarytableModel.getValueAt(row, 1).toString());
 					patientsname2.setText((String) diarytableModel.getValueAt(row, 2));
 					patientssurname2.setText((String) diarytableModel.getValueAt(row, 3));
 					patientstelephone2.setText((String) diarytableModel.getValueAt(row, 4));
@@ -217,7 +217,7 @@ public class Receptionist_GUI extends JFrame {
 					clinicianssurname2.setText((String) diarytableModel.getValueAt(row, 7));
 					clinicname.setText((String) diarytableModel.getValueAt(row, 8));
 					appointmenttime2.setText((String) diarytableModel.getValueAt(row, 9));
-					int result = JOptionPane.showConfirmDialog(null, myPanel4, "Edit patient information",
+					int result = JOptionPane.showConfirmDialog(null, myPanel4, "Edit appointment information",
 							JOptionPane.OK_CANCEL_OPTION, 0,
 							new ImageIcon(Receptionist_GUI.class.getResource("/img/pencil.png")));
 
@@ -431,7 +431,7 @@ public class Receptionist_GUI extends JFrame {
 						e1.printStackTrace();
 					}
 
-					patientstableModel.addRow(new Object[] { ID, Name, Surname, Email, Address, bday, tel, Gender });
+					patientstableModel.addRow(new Object[] { ID, Name, Surname, Email, Address, tel, bday, Gender });
 					patientstableModel.fireTableDataChanged();
 				}
 			}
@@ -478,8 +478,8 @@ public class Receptionist_GUI extends JFrame {
 				int row = patientsTable.getSelectedRow();
 
 				if (row >= 0) {
-					patientsid1.setText((String) patientstableModel.getValueAt(row, 0));
-					patientsid1.setEditable(false);
+					patientsid1.setText(patientstableModel.getValueAt(row, 0).toString());
+					patientsid1.setEnabled(false);
 					patientsname1.setText((String) patientstableModel.getValueAt(row, 1));
 					patientssurname1.setText((String) patientstableModel.getValueAt(row, 2));
 					patientsemail1.setText((String) patientstableModel.getValueAt(row, 3));
@@ -487,7 +487,7 @@ public class Receptionist_GUI extends JFrame {
 					patientstelephone1.setText((String) patientstableModel.getValueAt(row, 5));
 					patientsbirthday1.setText((String) patientstableModel.getValueAt(row, 6));
 					patientsgender1.setText((String) patientstableModel.getValueAt(row, 7));
-					patientsgender1.setEditable(false);
+					patientsgender1.setEnabled(false);
 
 					int result = JOptionPane.showConfirmDialog(null, myPanel1, "Edit patient information",
 							JOptionPane.OK_CANCEL_OPTION, 0,
@@ -507,7 +507,7 @@ public class Receptionist_GUI extends JFrame {
 							look_up.editPatient(ID, Name, Surname, Email, Address, bday, tel, Gender);
 							patientstableModel.removeRow(row);
 							patientstableModel
-									.addRow(new Object[] { ID, Name, Surname, Email, Address, bday, tel, Gender });
+									.addRow(new Object[] { ID, Name, Surname, Email, Address, tel, bday, Gender });
 							patientstableModel.fireTableDataChanged();
 						} catch (RemoteException | SQLException e1) {
 							e1.printStackTrace();
