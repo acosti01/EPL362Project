@@ -183,7 +183,6 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 							} catch (RemoteException e1) {
 								e1.printStackTrace();
 							}
-							System.out.println("password is " + password);
 						}
 						String Type = comboBoxtype1.getSelectedItem().toString();
 
