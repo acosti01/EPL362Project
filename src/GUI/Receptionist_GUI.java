@@ -229,7 +229,6 @@ public class Receptionist_GUI extends JFrame {
 							clinicianID = look_up.getClinicianID(cliniciansname2.getText(),
 									clinicianssurname2.getText());
 						} catch (RemoteException | SQLException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						String Name = patientsname2.getText();
@@ -244,10 +243,8 @@ public class Receptionist_GUI extends JFrame {
 						try {
 							look_up.editAppointment(ID, date, patientsID, clinicianID, Clinic, Time, Type);
 						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						} catch (RemoteException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						diarytableModel.addRow(new Object[] { ID, patientsID, Name, Surname, Telephone, date,
