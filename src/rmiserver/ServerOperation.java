@@ -338,4 +338,14 @@ public class ServerOperation extends UnicastRemoteObject implements RMIInterface
 		return rs.getString(1);
 
 	}
+
+	@Override
+	public void deletePersonnel(Object id) throws SQLException, RemoteException {
+		
+		String query = "DELETE FROM user WHERE id = '" + id + "'";
+		Statement stat = conn.createStatement();
+		stat.executeUpdate(query);
+		System.out.println("Deleted user with ID = " + id);
+		
+	}
 }

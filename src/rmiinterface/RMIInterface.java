@@ -47,5 +47,7 @@ public interface RMIInterface extends Remote {
 
 	public String getUserPassword(int iD) throws SQLException, RemoteException;
 
+	public void deletePersonnel(Object id) throws SQLException, RemoteException;
+
 	
 }

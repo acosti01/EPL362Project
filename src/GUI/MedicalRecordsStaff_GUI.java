@@ -224,7 +224,7 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 		});
 		btnNewButton_1.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/pencil.png")));
-		btnNewButton_1.setBounds(1278, 530, 58, 54);
+		btnNewButton_1.setBounds(1278, 427, 58, 54);
 		tab1.add(btnNewButton_1);
 
 		comboBoxtype1.setModel(new DefaultComboBoxModel<String>(
@@ -249,24 +249,35 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 		myPanel1.add(new JLabel("User-Type:"));
 		myPanel1.add(comboBoxtype1);
 
-		JButton btnNewButton_2 = new JButton("");
-
-		btnNewButton_2.setIcon(new ImageIcon(
-				MedicalRecordsStaff_GUI.class.getResource("/img/eyes.jpg")));
-		btnNewButton_2.setBounds(1278, 435, 58, 54);
-		tab1.add(btnNewButton_2);
-
 		JButton button = new JButton("");
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = personnelTable.getSelectedRow();
+				if (row >= 0) {
+					Object id = personnelTable.getValueAt(row, 0);
+					try {
+						look_up.deletePersonnel(id);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					} catch (RemoteException e1) {
+						e1.printStackTrace();
+					}
+					personnelTableModel.removeRow(row);
+					personnelTableModel.fireTableDataChanged();
+				}
+			}
+		});
 		button.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/delete.png")));
-		button.setBounds(1278, 690, 58, 54);
+		button.setBounds(1278, 607, 58, 54);
 		tab1.add(button);
 
 		JButton btnNewButton_5 = new JButton("");
 		btnNewButton_5.setEnabled(false);
 		btnNewButton_5.setIcon(new ImageIcon(
 				MedicalRecordsStaff_GUI.class.getResource("/img/refresh.png")));
-		btnNewButton_5.setBounds(1278, 610, 58, 54);
+		btnNewButton_5.setBounds(1278, 514, 58, 54);
 		tab1.add(btnNewButton_5);
 
 		JPanel tab2 = new JPanel();
