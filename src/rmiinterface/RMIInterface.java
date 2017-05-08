@@ -5,8 +5,6 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JTextField;
-
 public interface RMIInterface extends Remote {
 
 	public ArrayList<String> validate(String username, String password) throws RemoteException, SQLException;
