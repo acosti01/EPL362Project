@@ -20,8 +20,10 @@ public class mainApplication {
 	private static RMIInterface look_up;
 	static ArrayList<String> s;
 
-	public static void main(String[] args)
-			throws InterruptedException, MalformedURLException, RemoteException, NotBoundException, SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public static void main(String[] args) throws InterruptedException,
+			MalformedURLException, RemoteException, NotBoundException,
+			SQLException, ClassNotFoundException, InstantiationException,
+			IllegalAccessException, UnsupportedLookAndFeelException {
 		look_up = (RMIInterface) Naming.lookup("//localhost/MyServer");
 		boolean logged_in = false;
 		log_in login = new log_in();// object used for login
@@ -38,16 +40,16 @@ public class mainApplication {
 		User currentUser = new User(s);
 		switch (currentUser.getType()) {
 		case "CLINICAL_STAFF":
-			new  ClinicalStaff_GUI(currentUser, look_up);
+			new ClinicalStaff_GUI(currentUser, look_up);
 			break;
 		case "RECEPTIONIST":
-			new Receptionist_GUI(currentUser,look_up);
+			new Receptionist_GUI(currentUser, look_up);
 			break;
 		case "MEDICAL_RECORD_STAFF":
 			new MedicalRecordsStaff_GUI(look_up);
 			break;
 		case "HEALTH_SERVICE_MANAGEMENT":
-			//new Management_GUI(currentUser);
+			// new Management_GUI(currentUser);
 			break;
 		}
 	}

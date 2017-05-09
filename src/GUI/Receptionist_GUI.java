@@ -93,7 +93,7 @@ public class Receptionist_GUI extends JFrame {
 	JScrollPane diaryscrollpane;
 	JScrollPane patientsscrollpane;
 	private JTextField textField;
-	
+
 	JTextField appointmentid2 = new JTextField();
 	JTextField patientsid4 = new JTextField();
 	JTextField clinicIDforView = new JTextField();
@@ -343,7 +343,7 @@ public class Receptionist_GUI extends JFrame {
 		lblNoResultsFound.setBounds(975, 669, 262, 46);
 		tab1.add(lblNoResultsFound);
 		lblNoResultsFound.setVisible(false);
-		
+
 		JButton btnNewButton_3 = new JButton("");
 		btnNewButton_3.addMouseListener(new MouseAdapter() {
 			@Override
@@ -373,8 +373,7 @@ public class Receptionist_GUI extends JFrame {
 							JOptionPane.OK_CANCEL_OPTION, 0,
 							new ImageIcon(Receptionist_GUI.class
 									.getResource("/img/search.png")));
-				}
-				else{
+				} else {
 					lblNoResultsFound.setVisible(true);
 				}
 			}
@@ -712,26 +711,26 @@ public class Receptionist_GUI extends JFrame {
 				Receptionist_GUI.class.getResource("/img/patient.png")));
 		lblNewLabel_4.setBounds(10, 11, 237, 234);
 		tab2.add(lblNewLabel_4);
-		
+
 		JLabel lblSearchByPatiend = new JLabel("Search by Patient ID:");
 		lblSearchByPatiend.setForeground(new Color(0, 0, 51));
 		lblSearchByPatiend.setFont(new Font("Tahoma", Font.BOLD, 23));
 		lblSearchByPatiend.setBounds(814, 629, 250, 46);
 		tab2.add(lblSearchByPatiend);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		textField_1.setBounds(1076, 640, 192, 26);
 		tab2.add(textField_1);
 		textField_1.setColumns(10);
-		
+
 		JLabel lblNoResultsFound_1 = new JLabel("No results found!");
 		lblNoResultsFound_1.setForeground(new Color(0, 0, 51));
 		lblNoResultsFound_1.setFont(new Font("Tahoma", Font.BOLD, 23));
 		lblNoResultsFound_1.setBounds(1031, 671, 237, 46);
 		tab2.add(lblNoResultsFound_1);
 		lblNoResultsFound_1.setVisible(false);
-		
+
 		JTextField patientsid16 = new JTextField();
 		JTextField patientsname16 = new JTextField();
 		JTextField patientssurname16 = new JTextField();
@@ -740,7 +739,7 @@ public class Receptionist_GUI extends JFrame {
 		JTextField patientstelephone16 = new JTextField();
 		JTextField patientsbirthday16 = new JTextField();
 		JTextField patientsgender16 = new JTextField();
-		
+
 		myPanel6.setLayout(new BoxLayout(myPanel6, BoxLayout.Y_AXIS));
 		myPanel6.add(new JLabel("ID:"));
 		myPanel6.add(patientsid16);
@@ -766,14 +765,14 @@ public class Receptionist_GUI extends JFrame {
 		myPanel6.add(new JLabel("Gender:"));
 		myPanel6.add(patientsgender16);
 		patientsgender16.setEnabled(false);
-		
+
 		JButton button_4 = new JButton("");
 		button_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 				int id = Integer.parseInt(textField_1.getText());
-				
+
 				String result = null;
 				try {
 					result = look_up.findPatient(id);
@@ -793,17 +792,16 @@ public class Receptionist_GUI extends JFrame {
 					patientsbirthday16.setText(splited[6]);
 					patientsgender16.setText(splited[7]);
 					JOptionPane.showConfirmDialog(null, myPanel6,
-							"View patient",
-							JOptionPane.OK_CANCEL_OPTION, 0,
+							"View patient", JOptionPane.OK_CANCEL_OPTION, 0,
 							new ImageIcon(Receptionist_GUI.class
 									.getResource("/img/search.png")));
-				}
-				else{
+				} else {
 					lblNoResultsFound_1.setVisible(true);
 				}
 			}
 		});
-		button_4.setIcon(new ImageIcon(Receptionist_GUI.class.getResource("/img/search.png")));
+		button_4.setIcon(new ImageIcon(
+				Receptionist_GUI.class.getResource("/img/search.png")));
 		button_4.setFont(new Font("Tahoma", Font.BOLD, 25));
 		button_4.setBounds(1278, 635, 58, 54);
 		tab2.add(button_4);
