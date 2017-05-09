@@ -49,5 +49,9 @@ public interface RMIInterface extends Remote {
 
 	public void deletePersonnel(Object id) throws SQLException, RemoteException;
 
+	public String findAppointment(int id) throws SQLException, RemoteException;
+
+	public String findPatient(int id) throws SQLException, RemoteException;
+
 	
 }
