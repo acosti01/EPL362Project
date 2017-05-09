@@ -586,19 +586,11 @@ public class Receptionist_GUI extends JFrame {
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 25));
 		button_1.setBounds(1278, 303, 58, 54);
 		tab2.add(button_1);
-
-		JButton btnNewButton_4 = new JButton("");
-
-		btnNewButton_4.setIcon(new ImageIcon(
-				Receptionist_GUI.class.getResource("/img/refresh.png")));
-		btnNewButton_4.setBounds(1278, 389, 58, 54);
-		tab2.add(btnNewButton_4);
-		btnNewButton_4.setEnabled(false);
 		JButton button_2 = new JButton("");
 		button_2.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/pencil.png")));
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 25));
-		button_2.setBounds(1280, 473, 58, 54);
+		button_2.setBounds(1278, 428, 58, 54);
 		tab2.add(button_2);
 
 		myPanel1.setLayout(new BoxLayout(myPanel1, BoxLayout.Y_AXIS));
