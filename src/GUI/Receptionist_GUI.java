@@ -121,7 +121,7 @@ public class Receptionist_GUI extends JFrame {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/receptionist.png")));
-		lblNewLabel.setBounds(811, 0, 215, 256);
+		lblNewLabel.setBounds(1133, 6, 215, 256);
 		tab1.add(lblNewLabel);
 		tab1.setBackground(new Color(0, 255, 255));
 
@@ -152,7 +152,7 @@ public class Receptionist_GUI extends JFrame {
 		Font tf = new Font("Appointments", Font.BOLD, 12);
 		diaryTable.getTableHeader().setFont(tf);
 		JScrollPane scrollpane = new JScrollPane(diaryTable);
-		scrollpane.setBounds(57, 310, 812, 325);
+		scrollpane.setBounds(57, 310, 1180, 325);
 		tab1.add(scrollpane);
 
 		// ************************************************************
@@ -209,7 +209,7 @@ public class Receptionist_GUI extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/add.png")));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 25));
-		btnNewButton.setBounds(889, 310, 58, 54);
+		btnNewButton.setBounds(1249, 314, 58, 54);
 		tab1.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("");
@@ -289,19 +289,19 @@ public class Receptionist_GUI extends JFrame {
 
 		btnNewButton_1.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/pencil.png")));
-		btnNewButton_1.setBounds(889, 375, 58, 51);
+		btnNewButton_1.setBounds(1249, 375, 58, 51);
 		tab1.add(btnNewButton_1);
 
 		JButton btnNewButton_2 = new JButton("");
 		btnNewButton_2.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/settings.png")));
-		btnNewButton_2.setBounds(889, 437, 58, 51);
+		btnNewButton_2.setBounds(1249, 435, 58, 51);
 		tab1.add(btnNewButton_2);
 
 		JButton btnNewButton_3 = new JButton("");
 		btnNewButton_3.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/search.png")));
-		btnNewButton_3.setBounds(889, 499, 58, 46);
+		btnNewButton_3.setBounds(1249, 498, 58, 46);
 		tab1.add(btnNewButton_3);
 
 		JButton button = new JButton("");
@@ -326,7 +326,7 @@ public class Receptionist_GUI extends JFrame {
 		});
 		button.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/delete.png")));
-		button.setBounds(889, 560, 58, 51);
+		button.setBounds(1249, 556, 58, 51);
 		tab1.add(button);
 
 		JPanel tab2 = new JPanel();
