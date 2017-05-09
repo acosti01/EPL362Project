@@ -194,7 +194,6 @@ public class Receptionist_GUI extends JFrame {
 					try {
 						fullname = look_up.getPatientsFullName(patientsID);
 					} catch (RemoteException | SQLException e2) {
-						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
 					String[] splited = fullname.split("\\s+");
@@ -208,7 +207,6 @@ public class Receptionist_GUI extends JFrame {
 						appID = look_up.addAppointment(patientsID, date, time,
 								clinic, clinician, type, status);
 					} catch (RemoteException | SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					diarytableModel.addRow(new Object[] { appID, patientsID,
@@ -355,7 +353,6 @@ public class Receptionist_GUI extends JFrame {
 				try {
 					result = look_up.findAppointment(id);
 				} catch (RemoteException | SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				if (result != null) {
@@ -575,7 +572,6 @@ public class Receptionist_GUI extends JFrame {
 						look_up.addPatient(ID, Name, Surname, Email, Address,
 								bday, tel, Gender);
 					} catch (RemoteException | SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 
@@ -777,7 +773,6 @@ public class Receptionist_GUI extends JFrame {
 				try {
 					result = look_up.findPatient(id);
 				} catch (RemoteException | SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				if (result != null) {
