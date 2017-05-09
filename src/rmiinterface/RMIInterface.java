@@ -63,4 +63,8 @@ public interface RMIInterface extends Remote {
 
 	public String findPatient(int id) throws SQLException, RemoteException;
 
+	public Object[][] fillChanges() throws SQLException, RemoteException;
+
+	public void markChanged(String id) throws SQLException, RemoteException;
+
 }

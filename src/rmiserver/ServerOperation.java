@@ -152,7 +152,7 @@ public class ServerOperation extends UnicastRemoteObject
 				+ "', lastname = '" + surname + "', relative_email = '" + email
 				+ "', address = '" + address + "', phonenumber = '" + tel
 				+ "', birthday = '" + bday + "', gender = '" + gender
-				+ "'where id = '" + id + "'";
+				+ "', Req_change = 1 where id = '" + id + "'";
 
 		Statement stat = conn.createStatement();
 		stat.executeUpdate(query);
@@ -405,5 +405,35 @@ public class ServerOperation extends UnicastRemoteObject
 					+ rs.getString(7) + "/" + rs.getString(8);
 		else
 			return null;
+	}
+
+	@Override
+	public Object[][] fillChanges() throws SQLException, RemoteException {
+		Object[][] Entry = null;
+		String query = "select * from patient where Req_change = 1 ORDER by lastname";
+
+		Statement stat = conn.createStatement();
+		ResultSet rs = stat.executeQuery(query);
+		int c = 0;
+		int size = 0;
+		rs.last();
+		size = rs.getRow();
+		rs.beforeFirst();
+		Entry = new Object[size][8];
+		while (rs.next()) {
+			for (int i = 0; i < 8; i++)
+				Entry[c][i] = rs.getString(i + 1);
+			c++;
+		}
+		return Entry;
+	}
+
+	@Override
+	public void markChanged(String id) throws SQLException, RemoteException {
+
+		String query = "UPDATE patient SET Req_change = 0 where id = '"+ id + "'";
+		Statement stat = conn.createStatement();
+		stat.executeUpdate(query);
+		System.out.println("Marked request from patient: " + id + " as read!");
 	}
 }

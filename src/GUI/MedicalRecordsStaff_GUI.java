@@ -287,9 +287,9 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 		tabbedPane.addTab("Handle change request", tab2);
 
 		Object[][] diaryEntry;
-		diaryEntry = look_up.fillUser();
-		String[] diaryColumns = { "ID", "Name", "Surname", "Email", "Telephone",
-				"Username", "UserType" };
+		diaryEntry = look_up.fillChanges();
+		String[] diaryColumns = { "ID", "Name", "Surname", "Email", "Address",
+				"Phone Number", "Birthday", "Gender" };
 		DefaultTableModel diarytableModel = new DefaultTableModel(diaryEntry,
 				diaryColumns);
 		JTable diaryTable = new JTable(diarytableModel);
@@ -309,24 +309,34 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 		tab2.add(lblPatientRecords);
 
 		JButton button_1 = new JButton("");
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = diaryTable.getSelectedRow();
+				
+				if (row >= 0){
+					String id = (diaryTable.getValueAt(row, 0).toString());
+					try {
+						look_up.markChanged(id);
+					} catch (RemoteException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					diarytableModel.removeRow(row);
+				}
+			}
+		});
 		button_1.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/eyes.jpg")));
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 25));
-		button_1.setBounds(1278, 325, 58, 54);
+		button_1.setBounds(1234, 342, 58, 54);
 		tab2.add(button_1);
-
-		JButton button_2 = new JButton("");
-		button_2.setIcon(new ImageIcon(
-				Receptionist_GUI.class.getResource("/img/pencil.png")));
-		button_2.setFont(new Font("Tahoma", Font.BOLD, 25));
-		button_2.setBounds(1278, 410, 58, 54);
-		tab2.add(button_2);
 
 		JButton button_3 = new JButton("");
 		button_3.setIcon(new ImageIcon(
 				Receptionist_GUI.class.getResource("/img/delete.png")));
 		button_3.setFont(new Font("Tahoma", Font.BOLD, 25));
-		button_3.setBounds(1278, 596, 58, 54);
+		button_3.setBounds(1234, 433, 58, 54);
 		tab2.add(button_3);
 
 		JLabel lblNewLabel_4 = new JLabel("");
@@ -371,12 +381,6 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnNewButton_4.setBounds(494, 283, 89, 30);
 		tab3.add(btnNewButton_4);
-
-		JButton button_4 = new JButton("");
-		button_4.setIcon(new ImageIcon(
-				MedicalRecordsStaff_GUI.class.getResource("/img/refresh.png")));
-		button_4.setBounds(1278, 515, 58, 54);
-		tab2.add(button_4);
 
 		setVisible(true);
 	}
