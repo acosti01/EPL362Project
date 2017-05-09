@@ -368,12 +368,20 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 
 		JButton btnNewButton_3 = new JButton("Report");
 	
+		JLabel lblPatientWithId = new JLabel("Patient with id: is dead");
+		lblPatientWithId.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblPatientWithId.setBounds(728, 283, 296, 30);
+		tab3.add(lblPatientWithId);
+		lblPatientWithId.setVisible(false);
+		
 		btnNewButton_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String id = textField.getText();
 				try {
 					look_up.markDead(id);
+					lblPatientWithId.setText("Patient with id: " + id + " is dead");
+					lblPatientWithId.setVisible(true);
 				} catch (RemoteException | SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
