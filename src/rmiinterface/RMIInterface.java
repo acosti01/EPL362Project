@@ -67,4 +67,6 @@ public interface RMIInterface extends Remote {
 
 	public void markChanged(String id) throws SQLException, RemoteException;
 
+	void markDead(String id) throws SQLException, RemoteException;
+
 }

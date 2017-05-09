@@ -436,4 +436,13 @@ public class ServerOperation extends UnicastRemoteObject
 		stat.executeUpdate(query);
 		System.out.println("Marked request from patient: " + id + " as read!");
 	}
+	
+	@Override
+	public void markDead(String id) throws SQLException, RemoteException {
+
+		String query = "UPDATE patient SET IsAlive = 0 where id = '"+ id + "'";
+		Statement stat = conn.createStatement();
+		stat.executeUpdate(query);
+		System.out.println("Marked patient: " + id + " as dead!");
+	}
 }

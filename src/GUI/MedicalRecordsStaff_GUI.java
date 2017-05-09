@@ -367,6 +367,19 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 		textField.setColumns(10);
 
 		JButton btnNewButton_3 = new JButton("Report");
+	
+		btnNewButton_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String id = textField.getText();
+				try {
+					look_up.markDead(id);
+				} catch (RemoteException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnNewButton_3.setBounds(593, 283, 89, 30);
 		tab3.add(btnNewButton_3);
