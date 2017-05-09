@@ -368,7 +368,7 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 
 		JButton btnNewButton_3 = new JButton("Report");
 	
-		JLabel lblPatientWithId = new JLabel("Patient with id: is dead");
+		JLabel lblPatientWithId = new JLabel("Patient with id: is dead...");
 		lblPatientWithId.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblPatientWithId.setBounds(728, 283, 296, 30);
 		tab3.add(lblPatientWithId);
@@ -397,11 +397,6 @@ public class MedicalRecordsStaff_GUI extends JFrame {
 				MedicalRecordsStaff_GUI.class.getResource("/img/death.png")));
 		label.setBounds(803, 22, 213, 217);
 		tab3.add(label);
-
-		JButton btnNewButton_4 = new JButton("Reset");
-		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton_4.setBounds(494, 283, 89, 30);
-		tab3.add(btnNewButton_4);
 
 		setVisible(true);
 	}
