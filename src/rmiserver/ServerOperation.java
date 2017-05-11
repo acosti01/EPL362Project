@@ -136,7 +136,7 @@ public class ServerOperation extends UnicastRemoteObject
 
 		String query = "INSERT INTO PATIENT values ( " + "'" + id + "','" + name
 				+ "','" + surname + "','" + email + "','" + address + "','"
-				+ tel + "','" + bday + "','" + gender + "')";
+				+ tel + "','" + bday + "','" + gender + "', '0', '1')";
 
 		Statement stat = conn.createStatement();
 		stat.executeUpdate(query);
