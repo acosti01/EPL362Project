@@ -40,16 +40,16 @@ Apache Web Server και MySQL Database όπως αναφέραμε πιο πά�
 
 **Receptionist:**
 
-		**Username:** a
-		**Password:** a
+		Username: a
+		Password: a
 
 **Clinical Staff:**
 
-		**Username:** b
-		**Password:** b		
+		Username: b
+		Password: b		
 
 **Medical Records Staff:**
 
-		**Username:** c
-		**Password:** c
+		Username: c
+		Password: c
 
