@@ -39,14 +39,17 @@ Apache Web Server και MySQL Database όπως αναφέραμε πιο πά�
 Για τη σύνδεση και την εμφάνιση των κατάλληλων διαπροσωπειών μπορούμε να εισάγουμε:
 
 **Receptionist:**
+
 		**Username:** a
 		**Password:** a
 
 **Clinical Staff:**
+
 		**Username:** b
 		**Password:** b		
 
 **Medical Records Staff:**
+
 		**Username:** c
 		**Password:** c
 
