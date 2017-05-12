@@ -20,7 +20,7 @@ public class ServerOperation extends UnicastRemoteObject
 	private static final String HOST = "localhost";
 	private static final String USER = "root";
 	private static final String PASSWORD = "";
-	private static final String DATABASE = "arkalam";
+	private static final String DATABASE = "EPL362DB";
 
 	protected ServerOperation() throws RemoteException {
 
