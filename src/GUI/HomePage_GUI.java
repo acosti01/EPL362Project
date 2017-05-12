@@ -110,7 +110,7 @@ public class HomePage_GUI extends JFrame {
 		panel_5.setBounds(492, 277, 842, 82);
 		contentPane.add(panel_5);
 
-		JLabel lblWelcomeOnClinical = new JLabel("Welcome to clinical phychology");
+		JLabel lblWelcomeOnClinical = new JLabel("Welcome to clinical psychology");
 		panel_5.add(lblWelcomeOnClinical);
 		lblWelcomeOnClinical.setVisible(true);
 		lblWelcomeOnClinical.setFont(new Font("Tahoma", Font.BOLD, 50));
