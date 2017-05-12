@@ -1,7 +1,7 @@
 # EPL362Project
 **Αρχικά:**
 
-O server και η Βαση Δεδομένων βρίσκονται στο localhost οπότε πρέπει να είναι 
+O server και η Βάση Δεδομένων βρίσκονται στο localhost οπότε πρέπει να είναι 
 εγκατηστημένο το XAMPP και ανοιχτά το Apache Web Server και το MySQL Database
 services.
 
@@ -30,7 +30,6 @@ Apache Web Server και MySQL Database όπως αναφέραμε πιο πά�
 Ακολούθως ξεκινά το RMIRegistry και ξεκινά τον server όπου ενώνεται και με την 
 Βάση Δεδομένων που δημιουργήσαμε.
 
-
 Μέσω της Eclipse στο project, στο φάκελο src και στο package application ανοίγουμε
 το mainApplication.java και το τρέχουμε.
 
@@ -52,4 +51,12 @@ Apache Web Server και MySQL Database όπως αναφέραμε πιο πά�
 
 		Username: c
 		Password: c
+		
+
+**Έλεγχος:**
+
+Για τον έλεγχο υπάρχει το package test και ξεκινούμε το mainApplicationTest.java το 
+οποίο περιέχει τα testing σχετικά με τις λειτουργίες του server και της Βάσης Δεδομένων.
+Προϋπόθεση για να τρέξουν σωστά οι ελέγχοι είναι να τρέχει ο server που ξεκινήσαμε πιο
+πριν με το .bat file.
 
